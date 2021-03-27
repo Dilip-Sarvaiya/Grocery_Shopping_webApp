@@ -20,14 +20,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+
         <%
             String user_type = request.getParameter("user_type");
             String userEmail = request.getParameter("userEmail");
             String userPassword = request.getParameter("userPassword");
             HttpSession httpSession = request.getSession();
             HttpSession httpSession1 = request.getSession();
-
             try {
                 if (user_type.trim().equals("Admin")) {
                     User obj = UsersDAO.viewSingle(userEmail);
@@ -41,14 +40,12 @@
                             httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
                             response.sendRedirect("login.jsp");
                         }
-                    }
-                    else
-                    {
-                       httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
-                       response.sendRedirect("login.jsp"); 
+                    } else {
+                        httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
+                        response.sendRedirect("login.jsp");
                     }
                 }
-                 if (user_type.equals("Customer")) {
+                if (user_type.equals("Customer")) {
                     User obj = UsersDAO.viewSingle(userEmail);
                     if (obj != null) {
                         if ((userEmail.equals(obj.getUserEmail()) && userPassword.equals(obj.getUserPassword()) && user_type.equals(obj.getUserType()))) {
@@ -60,37 +57,40 @@
                             httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
                             response.sendRedirect("login.jsp");
                         }
-                    }
-                    else
-                    {
-                       httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
-                       response.sendRedirect("login.jsp"); 
+                    } else {
+                        httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
+                        response.sendRedirect("login.jsp");
                     }
                 }
-                 if (user_type.equals("Shopkeeper")) {
+                if (user_type.equals("Shopkeeper")) {
                     User obj = UsersDAO.viewSingle(userEmail);
-                    if (obj != null) {
-                        if ((userEmail.equals(obj.getUserEmail()) && userPassword.equals(obj.getUserPassword()) && user_type.equals(obj.getUserType()))) {
-                            httpSession.setAttribute("login_or_not", userEmail);
-                            httpSession1.setAttribute("login", userEmail);
-                            httpSession1.setAttribute("user_type", user_type);
-                            response.sendRedirect("dashboard.jsp");
+                    try {
+                        Shop obj1 = ShopDAO.viewSingle(userEmail);
+                        if (obj != null || obj1 != null) {
+                            if ((userEmail.equals(obj1.getShopEmail()) && userPassword.equals(obj.getUserPassword()) && user_type.equals(obj.getUserType()))) {
+                                httpSession.setAttribute("login_or_not", userEmail);
+                                httpSession1.setAttribute("login", userEmail);
+                                httpSession1.setAttribute("user_type", user_type);
+                                response.sendRedirect("dashboard.jsp");
+                            } else {
+                                httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
+                                response.sendRedirect("login.jsp");
+                            }
                         } else {
                             httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
                             response.sendRedirect("login.jsp");
                         }
-                    }
-                    else
-                    {
-                       httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
-                       response.sendRedirect("login.jsp"); 
+                    } catch (Exception e) {
+                        httpSession.setAttribute("message_invalid", "Please contact the admin to add you as a Shopkeeper");
+                        response.sendRedirect("login.jsp");
                     }
                 }
-                 
                 if (user_type.equals("Delivery boy")) {
                     User obj = UsersDAO.viewSingle(userEmail);
+                    try {
+                        DeliveryBoy obj1 = DeliveryboyDAO.viewSingle(userEmail);
                     if (obj != null) {
-                        if ((userEmail.equals(obj.getUserEmail()) && userPassword.equals(obj.getUserPassword()) && user_type.equals(obj.getUserType()))) {
+                        if ((userEmail.equals(obj1.getDbEmail()) && userPassword.equals(obj.getUserPassword()) && user_type.equals(obj.getUserType()))) {
                             httpSession.setAttribute("login_or_not", userEmail);
                             httpSession1.setAttribute("login", userEmail);
                             httpSession1.setAttribute("user_type", user_type);
@@ -99,12 +99,13 @@
                             httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
                             response.sendRedirect("login.jsp");
                         }
-                        
+                    } else {
+                        httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
+                        response.sendRedirect("login.jsp");
                     }
-                    else
-                    {
-                       httpSession.setAttribute("message_invalid", "Invalid Details..Try again!");
-                       response.sendRedirect("login.jsp"); 
+                     } catch (Exception e) {
+                        httpSession.setAttribute("message_invalid", "Please contact the admin to add you as a Delivery boy");
+                        response.sendRedirect("login.jsp");
                     }
                 }
             } catch (Exception ex) {

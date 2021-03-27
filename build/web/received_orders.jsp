@@ -20,7 +20,6 @@
 <%
     HttpSession httpSession = request.getSession();
     String email = (String) session.getAttribute("login_or_not");
-
     if (email != null) {
 %>
 <div style="margin-top: 10px;" class="container">
@@ -82,12 +81,10 @@
                 Connection conn = DBConnect_JDBC.getConnection();
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery("select sum(total) from cart where email='" + email + "' and address is NULL");
-
                 while (rs.next()) {
                     total = rs.getInt(1);
                 }
                 ResultSet rs2 = st.executeQuery("select * from user inner join cart where cart.email='" + email + "' and cart.status='bill'");
-
         %>
         <div class="container-fluid"> 
 
@@ -109,7 +106,7 @@
                             <th>Order date</th>
                             <th>Expected delivery date</th>
                             <th>Payment method</th>
-                            <th>Transaction Id</th>
+                            <th>Transation Id</th>
                             <th>Status</th>
                             <th colspan="2">Action</th>
                         </tr>
@@ -131,15 +128,15 @@
                             <td><%=rs1.getString(19)%></td>
                             <td><%=rs1.getString(4)%></td>
                             <td><%=rs1.getString(23)%>%</td>
-                            <td><%=rs1.getString(5)%></td>
-                            <td><%=rs1.getString(6)%></td>
+                            <td><i class="fa fa-inr"></i><%=rs1.getString(5)%></td>
+                            <td><i class="fa fa-inr"></i><%=rs1.getString(6)%></td>
                             <td><%=rs1.getString(7)%></td>
                             <td><%=rs1.getString(15)%></td>
                             <td><%=rs1.getString(16)%></td> 
                             <td><%=rs1.getString(12)%></td>
                             <td><%=rs1.getString(13)%></td>
                             <td><%=rs1.getString(14)%></td>
-                            <td><a href="cancel_order.jsp?id=<%=rs1.getString(3)%>&email=<%=rs1.getString(2)%>&d_boy_email=<%=email%>"><button type="button" class="btn btn-primary btn-block">Cancel order <i class="fa fa-close"></i></button></a></td>
+                            <td><a href="accept_orders.jsp?id=<%=rs1.getString(3)%>&email=<%=rs1.getString(2)%>&d_boy_email=<%=rs1.getString(17)%>"><button type="button" class="btn btn-success">Accept <i class="fa fa-cart-plus"></i></button></a></td>
                             <td><a href="delievered_orders.jsp?id=<%=rs1.getString(3)%>&email=<%=rs1.getString(2)%>&d_boy_email=<%=rs1.getString(17)%>"><button type="button" class="btn btn-info">Delivered order <i class="fa fa-cart-plus"></i></button></a></td>
                         </tr>
                     </tbody>
@@ -147,7 +144,6 @@
                         if (c == 0) {
                             String d_boy_status = "available";
                             DeliveryBoy db_single = DeliveryboyDAO.viewSingle(email);
-
                             db_single.setStatus(d_boy_status);
                             DeliveryboyDAO.update(db_single);
                         }

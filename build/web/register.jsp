@@ -49,7 +49,7 @@
                                 <li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="nav-item"><a href="mycart.jsp" class="cart"><span class="lnr lnr-cart"></span></a></li>
+                                <li class="nav-item"><a href="#" class="cart"><span class="lnr lnr-cart"></span></a></li>
                                 
                             </ul>
                         </div>
@@ -80,6 +80,9 @@
                     <div class="col-lg-6">
                         <div class="login_form_inner align-items-center">
                             <h3>Registration</h3>
+                            <div style="padding-left:60px;padding-right: 60px;" class="col-sm-9 col-lg-12 container">
+                                <%@include file="message.jsp" %>
+                            </div>
                             <form class="row login_form" action="register_data.jsp" method="post" id="reg_form">
                                 <div class="col-md-12 form-group">
                                     <input type="text" class="form-control" id="userName" name="userName" placeholder="Username"
@@ -97,7 +100,7 @@
                                     <p id="p3"></p>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <input type="number" class="form-control" id="userPhone" name="userPhone" placeholder="Phone number"
+                                    <input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Phone number"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone number'">
                                     <p id="p4"></p>
                                 </div>
@@ -105,7 +108,7 @@
                                     <select style="margin-bottom: 20px;" name="user_type" id="user_type">
                                         <option value="none">Select user type</option>
                                         <option value="Customer">Customer</option>
-                                        <option value="Delivery Boy">Delivery Boy</option>
+                                        <option value="Delivery boy">Delivery boy</option>
                                         <option value="Shopkeeper">Shopkeeper</option>
                                     </select>
                                     <p id="p5"></p>
@@ -152,7 +155,6 @@
                                 dataLayer.push(arguments);
                             }
                             gtag('js', new Date());
-
                             gtag('config', 'UA-23581568-13');
         </script>
     </body>
@@ -160,4 +162,3 @@
     <!-- Mirrored from preview.colorlib.com/theme/karma/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Mar 2021 05:34:31 GMT -->
 
 </html>
-

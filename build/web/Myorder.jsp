@@ -18,17 +18,22 @@
 <%@page import=" javax.servlet.http.HttpSession"%>
 <%@page import="DAO.*"%>
 <%@page import="javax.servlet.http.HttpSession"%>
+
+<%@page import="java.sql.*"%>
+<%@page import="java.sql.Connection"%>
 <%
+    Connection conn = DBConnect_JDBC.getConnection();
+    Statement st = conn.createStatement();
     HttpSession httpSession = request.getSession();
     String email = (String) session.getAttribute("login_or_not");
     String db_charge = (String) session.getAttribute("db_charge");
     String d_boy = (String) session.getAttribute("d_boy");
     if (email != null) {
 %>
-<div style="margin-top: 140px;" class="container">
+<div style="margin-top: 145px;" class="container">
     <div class="row">
         <div class="col-md-12 col-sm-8">
-            <h4 class="text-white">Welcome  <strong><%=email%></strong></h4>
+            <h4>Welcome  <strong style="color:#ff6c00;"><%=email%></strong></h4>
         </div>
     </div>
 </div>
@@ -71,6 +76,29 @@
     <div style="padding-top: 10px;" class="container-fluid">
 
         <%@include file="message.jsp" %>
+
+        <form action="changedeliveryboy.jsp" method="post">
+            <div class="right-div">
+
+                <h3 style="color: red">*If Delivery Boy does not Accept order within 10 minutes ,replace Delivery Boy</h3>
+            </div>
+            <h3><b>Select Available Delivery boy</b></h3>
+
+            <div class="form-select" id="default-select">
+                <select class="input-style" name="d_boy">
+                    <%                    ResultSet rs5 = st.executeQuery("select * from delivery_boy where status='available'");
+                        while (rs5.next()) {
+                    %>
+
+                    <option value="<%=rs5.getString(2)%>"><%=rs5.getString(2)%></option>
+
+                    <% }%>
+                </select>
+            </div>
+            <div style="margin-top: 20px;text-align: center;" class="col-md-12 form-group">
+                <button  type="submit" value="submit" class="primary-btn">Change</button>
+            </div>
+        </form>
         <table class="table table-hover" width='100%'>
             <h3 class="text-center">My Orders<i class="fa fa-cart-plus"></i></h3>  
             <thead>
@@ -95,9 +123,6 @@
             </thead>
             <%                    int sno = 0;
                 try {
-                    Connection conn = DBConnect_JDBC.getConnection();
-                    Statement st = conn.createStatement();
-                    
                     ResultSet rs1 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.orderDateTime is not NULL");
                     while (rs1.next()) {
                         DeliveryBoy db = DeliveryboyDAO.viewSingle_by_name(d_boy);
@@ -113,9 +138,9 @@
                     <td><%=rs1.getLong(23)%>%</td>
                     <td><i class="fa fa-inr"></i><%out.println(rs1.getString(6));%></td>
                     <td><i class="fa fa-inr"></i><%out.println(Integer.parseInt(db_charge));%></td>
-                    <%
-                        DeliveryBoy db1 = DeliveryboyDAO.viewSingle(rs1.getString(17));
-                    %>
+                        <%
+                            DeliveryBoy db1 = DeliveryboyDAO.viewSingle(rs1.getString(17));
+                        %>
                     <td><%=db1.getDbName()%></td>
                     <td><%=rs1.getString(17)%></td>
 
@@ -132,9 +157,16 @@
                 } catch (Exception ex) {
                     out.println(ex.getMessage());
                 }
+                if (sno == 0) {
+                    out.println("<h2 class='text-center'>You have not did any order.</h2>");
+                }
             %>
 
+
         </table>
+        <%
+        %>
+
     </div>
 
     <jsp:include page="footer.jsp"/>

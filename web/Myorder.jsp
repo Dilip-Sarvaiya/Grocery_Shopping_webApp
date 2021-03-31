@@ -178,6 +178,8 @@
                 ResultSet rs2 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.orderDateTime is not NULL");
 
                 while (rs2.next()) {
+                    if(!rs2.getString(14).equals("Accepted"))
+                    {
             %>
             <div class="bs-example">
                         <div class="text-center">
@@ -185,7 +187,7 @@
 
                 </div>
             </div>
-            <% break;
+            <%} break;
                 }
             %>
 

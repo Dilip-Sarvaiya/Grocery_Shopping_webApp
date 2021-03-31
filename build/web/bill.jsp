@@ -148,7 +148,9 @@
                             </tr>
                         </thead>
 
-                        <%                            ResultSet rs1 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.status='bill'");
+                        <%  StringBuilder sb_product_name=new StringBuilder();
+                            StringBuilder sb_product_quantity=new StringBuilder();
+                            ResultSet rs1 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.status='bill'");
                             while (rs1.next()) {
                                 sno = sno + 1;
                                 Shop sh = ShopDAO.getShopId(Long.parseLong(rs1.getString(26)));
@@ -166,12 +168,17 @@
                                 <td><i class="fa fa-inr"></i><%=rs1.getString(5)%></td>
                                 <td><%=rs1.getString(23) + "%"%></td>
                                 <td><i class="fa fa-inr"></i><%=rs1.getString(6)%></td>
+                                
                             </tr>
                         </tbody>
-                        <%}%>
+                        <%
+                            sb_product_name=sb_product_name.append("("+sno+")"+rs1.getString(19)+",");
+                            sb_product_quantity=sb_product_quantity.append("("+sno+")"+rs1.getString(4)+",");
+                            %>
+                        <%     }%>
                     </table>
                     <h3 >Total: <i class="fa fa-inr"></i><%out.println(total + Long.parseLong(db_charge));%></h3>
-                    <a href="continueshopping.jsp?db_email=<%=db.getDbEmail()%>&total_amount=<%=total%>"><button type="button" class="btn btn-outline-warning" ><strong>Place Order</strong></button></a>
+                    <a href="continueshopping.jsp?db_email=<%=db.getDbEmail()%>&total_amount=<%=total%>&info=<%=sb_product_name.toString()%>&info_quantity=<%=sb_product_quantity.toString() %>"><button type="button" class="btn btn-outline-warning" ><strong>Place Order</strong></button></a>
                     <a onclick="window.print();"><button type="button" class="btn btn-outline-success"><strong>Print of order</strong></button></a>
                     <%  String something_get = (String) httpSession.getAttribute("something_get"); %>
                     <a href="product.jsp"><button type="button" class="btn btn-outline-warning" ><strong>Go to My order</strong></button></a>

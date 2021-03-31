@@ -98,8 +98,8 @@
             <div class="row mt-5">
                 <div class="col md-6">
 
-                    <%                            while (rs2.next()) {
-                            DeliveryBoy db = DeliveryboyDAO.viewSingle_by_name(d_boy);
+                    <%  DeliveryBoy db = DeliveryboyDAO.viewSingle_by_name(d_boy);                          
+                        while (rs2.next()) {
                     %>
                     <table>
                         <tr>
@@ -132,7 +132,7 @@
                 </div>
             </div>
 
-                <div style="margin-bottom: 20px;"class="text-center">
+                <div style="padding-bottom: 20px;"class="text-center">
                     <table class="table table-hover" width='100%'>
                         <thead>       
                             <tr>
@@ -171,7 +171,7 @@
                         <%}%>
                     </table>
                     <h3 >Total: <i class="fa fa-inr"></i><%out.println(total + Long.parseLong(db_charge));%></h3>
-                    <a href="continueshopping.jsp"><button type="button" class="btn btn-outline-warning" ><strong>Place Order</strong></button></a>
+                    <a href="continueshopping.jsp?db_email=<%=db.getDbEmail()%>&total_amount=<%=total%>"><button type="button" class="btn btn-outline-warning" ><strong>Place Order</strong></button></a>
                     <a onclick="window.print();"><button type="button" class="btn btn-outline-success"><strong>Print of order</strong></button></a>
                     <%  String something_get = (String) httpSession.getAttribute("something_get"); %>
                     <a href="product.jsp"><button type="button" class="btn btn-outline-warning" ><strong>Go to My order</strong></button></a>

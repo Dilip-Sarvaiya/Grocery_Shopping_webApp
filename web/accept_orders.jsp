@@ -22,7 +22,7 @@
             try {
                 Connection conn = DBConnect_JDBC.getConnection();
                 Statement st = conn.createStatement();
-                st.executeUpdate("update cart set status='"+status+"' where p_id='"+id+"' and email='"+email+"' and address is not NULL");
+                st.executeUpdate("update cart set status='"+status+"' where email='"+email+"' and address is not NULL");
                 httpSession.setAttribute("message", "Successfully updated");
                 response.sendRedirect("received_orders.jsp");   
                 

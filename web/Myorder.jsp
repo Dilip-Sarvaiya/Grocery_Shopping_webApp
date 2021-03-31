@@ -67,6 +67,9 @@
                 color: #ff6c00;
                 text-align: center;
             }
+            .bs-example{
+                margin: 20px;
+            }
         </style>
 
     </head>
@@ -76,7 +79,9 @@
         <div style="padding-top: 10px;" class="container-fluid">
 
             <%@include file="message.jsp" %>
-
+            <%                String one_db = (String) httpSession.getAttribute("one_db");
+                if (one_db == null) {
+            %>
             <form action="changedeliveryboy.jsp" id="change_db" method="post">
                 <div class="right-div">
 
@@ -86,23 +91,23 @@
 
                 <div class="form-select" id="default-select">
                     <select class="input-style" id="d_boy" name="d_boy">
-                        <%                    ResultSet rs5 = st.executeQuery("select * from delivery_boy where status='available'");
-                            if (rs5.getRow() == 0) {
-                        %><option value="none">Delivery boys are not available</option><%
-                                } else {
-                                    while (rs5.next()) {
+                        <%                             List<DeliveryBoy> list = DeliveryboyDAO.For_getting_all_boys();
+                            if (list.isEmpty()) {
                         %>
-
-                        <option value="<%=rs5.getString(2)%>"><%=rs5.getString(2)%></option>
-
-                        <% }
-                        }%>
+                        <option value="none" >Delivery boys are not available on this time</option> 
+                        <%} else {
+                            for (DeliveryBoy d : list) {
+                        %>
+                        <option value="<%=d.getDbName()%>"><%=d.getDbName()%></option> 
+                        <%}%>
+                        <%}%>
                     </select>
                 </div>
                 <div style="margin-top: 20px;text-align: center;" class="col-md-12 form-group">
                     <button  type="submit" value="submit" class="primary-btn">Change</button>
                 </div>
             </form>
+            <%}%>
             <table class="table table-hover" width='100%'>
                 <h3 class="text-center">My Orders<i class="fa fa-cart-plus"></i></h3>  
                 <thead>
@@ -122,7 +127,6 @@
                         <th>Expected Delivery date</th>
                         <th>Payment Method</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <%                    int sno = 0;
@@ -153,11 +157,12 @@
                         <td><%=rs1.getString(16)%></td>
                         <td><%=rs1.getString(12)%></td>
                         <td><%=rs1.getString(14)%></td>
-                        <td><a href="delete_myorder.jsp?id=<%=rs1.getString(1)%>"><button type="button" class="btn btn-danger">Remove</button></a></td>
+
                     </tr>
                 </tbody>
                 <%
                         }
+
                     } catch (Exception ex) {
                         out.println(ex.getMessage());
                     }
@@ -168,7 +173,20 @@
 
 
             </table>
+
             <%
+                ResultSet rs2 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.orderDateTime is not NULL");
+
+                while (rs2.next()) {
+            %>
+            <div class="bs-example">
+                        <div class="text-center">
+                            <a href="delete_myorder.jsp?id=<%=rs2.getString(1)%>&email=<%=email%>"><button type="button" class="btn btn-danger text-right">Remove</button></a>
+
+                </div>
+            </div>
+            <% break;
+                }
             %>
 
         </div>
@@ -189,14 +207,15 @@
         <script>
             $("document").ready(function ()
             {
-                var d_boy_available=$("#d_boy").val();
+                var d_boy_available = $("#d_boy").val();
                 $("#change_db").submit(function ()
                 {
-                    if(d_boy_available=="none")
+                    if (d_boy_available == "none")
                     {
                         alert("Please try later...");
                         return false;
                     }
+
                 });
             });
         </script>

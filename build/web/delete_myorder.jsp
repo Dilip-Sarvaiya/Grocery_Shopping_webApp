@@ -24,10 +24,11 @@
         <%
             HttpSession httpSession=request.getSession();
             String id=request.getParameter("id");
+            String email=request.getParameter("email");
         try {
                 Connection conn = DBConnect_JDBC.getConnection();
                 Statement st = conn.createStatement();
-                st.executeUpdate("delete from cart where order_id='"+id+"'");
+                st.executeUpdate("delete from cart where email='"+email+"'");
                 httpSession.setAttribute("message", "Order successfully removed");
                 response.sendRedirect("Myorder.jsp");
             }

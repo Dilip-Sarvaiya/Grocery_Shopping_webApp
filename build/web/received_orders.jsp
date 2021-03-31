@@ -3,6 +3,8 @@
     Created on : 8 Mar, 2021, 11:27:52 PM
     Author     : Dilip J Sarvaiya
 --%>
+<%@page import="Pojo.Product"%>
+<%@page import="Pojo.Shop"%>
 <%@page import="Pojo.Category"%>
 <%@page import="Pojo.User"%>
 <%@page import="Pojo.Cart"%>
@@ -28,7 +30,7 @@
             <h4 >Welcome  <font color="ff6c00"><strong><%=email%></strong></font></h4>
         </div>
         <div class="col-md-7 col-sm-8">
-        <a href="dashboard.jsp"><button style="margin-bottom: 10px;"  type="button" class="btn btn-light">Go to the Dashboard</button></a>
+            <a href="dashboard.jsp"><button style="margin-bottom: 10px;"  type="button" class="btn btn-light">Go to the Dashboard</button></a>
         </div>
     </div>
 </div>
@@ -68,6 +70,9 @@
             {
                 padding-bottom:50px;
             }
+            .bs-example{
+                margin: 20px;
+            }
         </style>
 
         <title>Received orders</title>
@@ -98,6 +103,8 @@
                             <th>Customer Email</th>
                             <th>Mobile number</th>
                             <th>Product Name</th>
+                            <th>Shop Name</th>
+                            <th>Shop Address</th>
                             <th>Quantity</th>
                             <th>Discount</th>
                             <th>Price</th>
@@ -120,12 +127,16 @@
                     %>
                     <tbody>    
                         <tr>
-                            <%                                Category obj = CategoryDAO.getCategoryId(rs1.getLong(24));
+                            <%
+                                Shop sh = ShopDAO.viewSingle_by_shop_id(rs1.getLong(26));
+                                User user=UsersDAO.viewSingle(sh.getShopEmail() );
                             %>
                             <td><%out.println(sno);%></td>
                             <td><%=rs1.getString(2)%></td>
                             <td><%=rs1.getString(11)%></td>
                             <td><%=rs1.getString(19)%></td>
+                            <td><%=sh.getShopName()%></td>
+                            <td><%=user.getUserAddress() %></td>
                             <td><%=rs1.getString(4)%></td>
                             <td><%=rs1.getString(23)%>%</td>
                             <td><i class="fa fa-inr"></i><%=rs1.getString(5)%></td>
@@ -136,8 +147,6 @@
                             <td><%=rs1.getString(12)%></td>
                             <td><%=rs1.getString(13)%></td>
                             <td><%=rs1.getString(14)%></td>
-                            <td><a href="accept_orders.jsp?id=<%=rs1.getString(3)%>&email=<%=rs1.getString(2)%>&d_boy_email=<%=rs1.getString(17)%>"><button type="button" class="btn btn-success">Accept <i class="fa fa-cart-plus"></i></button></a></td>
-                            <td><a href="delievered_orders.jsp?id=<%=rs1.getString(3)%>&email=<%=rs1.getString(2)%>&d_boy_email=<%=rs1.getString(17)%>"><button type="button" class="btn btn-info">Delivered order <i class="fa fa-cart-plus"></i></button></a></td>
                         </tr>
                     </tbody>
                     <%}
@@ -152,9 +161,23 @@
                         }
                     %>
                 </table>
-<!--                        <h3 >Total: <%out.println(total);%></h3>
-                    <a href="continueshopping.jsp"><button type="button" class="btn text-white btn-outline-warning" ><strong>Continue Shopping</strong></button></a>
-                    <a onclick="window.print();"><button type="button" class="btn text-white btn-outline-success"><strong>Place order</strong></button></a>-->
+                <%
+                    ResultSet rs3 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.orderDateTime is not NULL and cart.status='processing' ");
+
+                    while (rs3.next()) {
+                %>
+                <div class="bs-example">
+                    <div class="text-center">
+                        <a href="accept_orders.jsp?id=<%=rs3.getString(3)%>&email=<%=rs3.getString(2)%>&d_boy_email=<%=rs3.getString(17)%>"><button type="button" class="btn btn-success">Accept <i class="fa fa-cart-plus"></i></button></a>
+                        <a href="delievered_orders.jsp?id=<%=rs3.getString(3)%>&email=<%=rs3.getString(2)%>&d_boy_email=<%=rs3.getString(17)%>"><button type="button" class="btn btn-info">Delivered order <i class="fa fa-cart-plus"></i></button></a>      
+                    </div>
+                </div>
+                <% break;
+                    }
+                %>
+    <!--                        <h3 >Total: <%out.println(total);%></h3>
+                        <a href="continueshopping.jsp"><button type="button" class="btn text-white btn-outline-warning" ><strong>Continue Shopping</strong></button></a>
+                        <a onclick="window.print();"><button type="button" class="btn text-white btn-outline-success"><strong>Place order</strong></button></a>-->
                 <%
                     } catch (Exception ex) {
                         out.println(ex.getMessage());

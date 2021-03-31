@@ -30,6 +30,21 @@ public class UsersDAO {
         return customerId;
     }
     
+     public static User getUserId(long userId)
+    {
+        User cat=null;
+        try
+        {
+            session=HibernateUtil.getSessionFactory().openSession();
+            cat=(User) session.get(User.class, userId);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return cat;
+    }
+     
      public static void save(OrderDetails bean)
     {
         session=HibernateUtil.getSessionFactory().openSession();

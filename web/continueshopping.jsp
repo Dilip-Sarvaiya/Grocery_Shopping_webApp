@@ -44,14 +44,17 @@
     <body>
         <%
             String status="processing";
+            
         try {
+                    String db_email=request.getParameter("db_email");
+                    String total_amount=request.getParameter("total_amount");
                     Connection conn = DBConnect_JDBC.getConnection();
-                    PreparedStatement ps = conn.prepareStatement("update cart set status=? where email=? and status='bill'");
+                    PreparedStatement ps = conn.prepareStatement("update cart set status=? where email=?");
                     ps.setString(1, status);
                     ps.setString(2, email);
                     ps.executeUpdate();
                     httpSession.setAttribute("message", "Your order has been placed");
-                    response.sendRedirect("Myorder.jsp");
+                    response.sendRedirect("EmailSendingServlet?db_email="+db_email+"&total_amount="+total_amount);
         }
                     catch(Exception ex)
                     {

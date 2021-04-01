@@ -115,11 +115,10 @@
                             <th>Payment method</th>
                             <th>Transation Id</th>
                             <th>Status</th>
-                            <th colspan="2">Action</th>
                         </tr>
                     </thead>
 
-                    <%     ResultSet rs1 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.orderDateTime is not NULL and cart.status='processing' ");
+                    <%     ResultSet rs1 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.orderDateTime is not NULL and (cart.status='processing' or cart.status='Accepted')");
                         int c = 0;
                         while (rs1.next()) {
                             sno = sno + 1;
@@ -162,7 +161,7 @@
                     %>
                 </table>
                 <%
-                    ResultSet rs3 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.orderDateTime is not NULL and cart.status='processing' ");
+                    ResultSet rs3 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.orderDateTime is not NULL and (cart.status='processing' or cart.status='Accepted')");
 
                     while (rs3.next()) {
                 %>

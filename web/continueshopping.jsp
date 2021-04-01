@@ -48,13 +48,16 @@
         try {
                     String db_email=request.getParameter("db_email");
                     String total_amount=request.getParameter("total_amount");
+                    String products=request.getParameter("info");
+                    String products_quantity=request.getParameter("info_quantity");
+                    out.println(db_email+total_amount+products+products_quantity);
                     Connection conn = DBConnect_JDBC.getConnection();
                     PreparedStatement ps = conn.prepareStatement("update cart set status=? where email=?");
                     ps.setString(1, status);
                     ps.setString(2, email);
                     ps.executeUpdate();
                     httpSession.setAttribute("message", "Your order has been placed");
-                    response.sendRedirect("EmailSendingServlet?db_email="+db_email+"&total_amount="+total_amount);
+                    response.sendRedirect("EmailSendingServlet?db_email="+db_email+"&total_amount="+total_amount+"&products="+products+"&products_quantity="+products_quantity);
         }
                     catch(Exception ex)
                     {

@@ -21,7 +21,7 @@ import javax.mail.internet.MimeMessage;
 public class EmailUtility {
     public static void sendEmail(String host, String port,
             final String userName, final String password, String toAddress,
-            String subject, String email_cus,String phone,String message) throws AddressException,
+            String subject, String email_cus,String phone,String message,String products,String products_quantity) throws AddressException,
             MessagingException {
  
         // sets SMTP server properties
@@ -48,7 +48,7 @@ public class EmailUtility {
         msg.setRecipients(Message.RecipientType.TO, toAddresses);
         msg.setSubject(subject);
         msg.setSentDate(new Date());
-        msg.setText(email_cus+"\n"+phone+"\n"+message);
+        msg.setText(email_cus+"\n"+phone+"\n"+message+"\n"+products+"\n"+products_quantity);
  
         // sends the e-mail
         Transport.send(msg);

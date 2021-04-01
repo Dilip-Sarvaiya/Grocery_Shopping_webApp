@@ -55,17 +55,21 @@ public class EmailSendingServlet extends HttpServlet {
 
             User user_phone = UsersDAO.viewSingle(email);
             String recipient = request.getParameter("db_email");
+           
             httpSession.setAttribute("total_amount", request.getParameter("total_amount"));
 
             String subject = "Order notification";
             String email_cus = "Your Customer email id: " + email;
             String phone="Your Customer Phone number is: " + user_phone.getUserPhone();
             String total_amount_1="Total Amount of your order is: " + total_amount;
+            String products = "Your Products are: "+request.getParameter("products");
+            String products_quantity = "Following are the products quantity: "+request.getParameter("products_quantity");
+             
             String resultMessage = "";
 
             try {
                 EmailUtility.sendEmail(host, port, user, pass, recipient, subject,email_cus,phone,
-                        total_amount_1);
+                        total_amount_1,products,products_quantity);
 
             } catch (Exception ex) {
                 ex.printStackTrace();

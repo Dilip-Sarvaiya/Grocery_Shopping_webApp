@@ -130,11 +130,14 @@
                     </tr>
                 </thead>
                 <%                    int sno = 0;
+                    String db_email = "";
                     try {
                         ResultSet rs1 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.orderDateTime is not NULL");
+                        int c = 0;
                         while (rs1.next()) {
                             DeliveryBoy db = DeliveryboyDAO.viewSingle_by_name(d_boy);
                             sno = sno + 1;
+                            c = c + 1;
                 %>
                 <tbody>
                     <tr>
@@ -148,6 +151,7 @@
                         <td><i class="fa fa-inr"></i><%out.println(Integer.parseInt(db_charge));%></td>
                             <%
                                 DeliveryBoy db1 = DeliveryboyDAO.viewSingle(rs1.getString(17));
+                                db_email = db1.getDbEmail();
                             %>
                         <td><%=db1.getDbName()%></td>
                         <td><%=rs1.getString(17)%></td>
@@ -178,16 +182,16 @@
                 ResultSet rs2 = st.executeQuery("select * from cart inner join product where cart.p_id=product.pid and cart.email='" + email + "' and cart.orderDateTime is not NULL");
 
                 while (rs2.next()) {
-                    if(!rs2.getString(14).equals("Accepted"))
-                    {
+                    if (!rs2.getString(14).equals("Accepted")) {
             %>
             <div class="bs-example">
-                        <div class="text-center">
-                            <a href="delete_myorder.jsp?id=<%=rs2.getString(1)%>&email=<%=email%>"><button type="button" class="btn btn-danger text-right">Remove</button></a>
+                <div class="text-center">
+                    <a href="delete_myorder.jsp?id=<%=rs2.getString(1)%>&email=<%=email%>&db_email=<%=db_email%>"><button type="button" class="btn btn-danger text-right">Remove</button></a>
 
                 </div>
             </div>
-            <%} break;
+            <%}
+                    break;
                 }
             %>
 

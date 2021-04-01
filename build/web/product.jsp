@@ -45,6 +45,11 @@
                 background: #c4e3f3;
                 cursor: pointer;
             }
+            h3
+            {
+                color: #ff6c00;
+                text-align: center;
+            }
         </style>
 
         <title>Products</title>
@@ -163,21 +168,27 @@
         <div class="container">
 
             <div class="row">      
-                <%                    String cat = request.getParameter("category");
+                <%  String brand_name = "";
+                    String cat = request.getParameter("category");
                     String shop = request.getParameter("shop");
                     new HibernateUtil(HibernateUtil.getSessionFactory());
                     List<Product> plist = null;
                     if (cat == null || shop == null || shop.trim().equals("all") || cat.trim().equals("all")) {
                         plist = ProductDAO.getAllProducts();
+                        brand_name="All";
                     }
                     if (cat != null) {
                         long cid = Long.parseLong(cat);
                         plist = ProductDAO.getAllProductsById(cid);
+                        Category cat1=CategoryDAO.getCategoryId(cid);
+                        brand_name=cat1.getCategoryTitle();
                         httpSession.setAttribute("category_value", cat);
                     }
                     if (shop != null) {
                         long cid = Long.parseLong(shop);
                         plist = ProductDAO.getAllProductsByShopId(cid);
+                        Shop cat1=ShopDAO.getShopId(cid);
+                        brand_name=cat1.getShopName();
                         httpSession.setAttribute("shop_value", shop);
                     }
                     List<Category> clist = CategoryDAO.viewAll();
@@ -207,6 +218,7 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-7">
+                     <h3 class="text-center"><%=brand_name%><i class="fa fa-cart-plus"></i></h3>  
                     <%@include file="message.jsp" %>
                     <section class="lattest-product-area pb-40 category-list">
                         <div class="row">

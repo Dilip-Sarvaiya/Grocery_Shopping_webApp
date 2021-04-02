@@ -24,6 +24,7 @@
             <ul class="nav navbar-nav menu_nav ml-auto">
               <li class="nav-item active"><a class="nav-link" href="index.jsp">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="dashboard.jsp">Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" href="shop_vise_orders.jsp">Orders</a></li>
               <li class="nav-item"><a class="nav-link" href="shop_vise_products.jsp">My Product</a></li>
               <li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li>
               <li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>

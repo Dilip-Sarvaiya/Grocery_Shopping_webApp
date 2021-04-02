@@ -22,18 +22,21 @@
     </head>
     <body>
         <%
-            HttpSession httpSession=request.getSession();
-            String id=request.getParameter("id");
-            String email=request.getParameter("email");
-        try {
+            HttpSession httpSession = request.getSession();
+            String id = request.getParameter("id");
+            String email = request.getParameter("email");
+            String db_email = request.getParameter("db_email");
+            try {
                 Connection conn = DBConnect_JDBC.getConnection();
                 Statement st = conn.createStatement();
-                st.executeUpdate("delete from cart where email='"+email+"'");
+                st.executeUpdate("delete from cart where email='" + email + "'");
+                String d_boy_status = "available";
+                DeliveryBoy db_single = DeliveryboyDAO.viewSingle(db_email);
+                db_single.setStatus(d_boy_status);
+                DeliveryboyDAO.update(db_single);
                 httpSession.setAttribute("message", "Order successfully removed");
                 response.sendRedirect("Myorder.jsp");
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 out.println(ex.getMessage());
             }
         %>

@@ -45,6 +45,15 @@
                 background: #c4e3f3;
                 cursor: pointer;
             }
+            .card_check
+            {
+                border: 3px solid red;
+            }
+            h3
+            {
+                color: #ff6c00;
+                text-align: center;
+            }
         </style>
 
         <title>Products</title>
@@ -157,31 +166,46 @@
                     </div>
                 </div>
             </div>
+            <div style="margin-top: 20px;margin-right: 20px;display:none;"  id="btn_compare" >
+                <form action="compare.jsp" method="post">
+                    <input type="hidden" value="" id="card_one" name="card_one"/>
+                    <input type="hidden" value="" id="card_two" name="card_two"/>
+                    <input type="submit" value="Compare Product" class="btn btn-success" style="float:right;"/>
+                </form>
+            </div> 
         </section>
 
 
         <div class="container">
 
             <div class="row">      
-                <%                    String cat = request.getParameter("category");
+
+                <%  String brand_name = "";
+                    String cat = request.getParameter("category");
                     String shop = request.getParameter("shop");
                     new HibernateUtil(HibernateUtil.getSessionFactory());
                     List<Product> plist = null;
                     if (cat == null || shop == null || shop.trim().equals("all") || cat.trim().equals("all")) {
                         plist = ProductDAO.getAllProducts();
+                        brand_name = "All";
                     }
                     if (cat != null) {
                         long cid = Long.parseLong(cat);
                         plist = ProductDAO.getAllProductsById(cid);
+                        Category cat1 = CategoryDAO.getCategoryId(cid);
+                        brand_name = cat1.getCategoryTitle();
                         httpSession.setAttribute("category_value", cat);
                     }
                     if (shop != null) {
                         long cid = Long.parseLong(shop);
                         plist = ProductDAO.getAllProductsByShopId(cid);
+                        Shop cat1 = ShopDAO.getShopId(cid);
+                        brand_name = cat1.getShopName();
                         httpSession.setAttribute("shop_value", shop);
                     }
                     List<Category> clist = CategoryDAO.viewAll();
                 %>
+
                 <div class="col-xl-3 col-lg-4 col-md-5">
                     <div class="sidebar-categories">
                         <div class="head">Browse Categories</div>
@@ -205,20 +229,24 @@
                             <% }%>
                         </ul>
                     </div>
+
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-7">
-                    <%@include file="message.jsp" %>
+
+                    <h3 class="text-center"><%=brand_name%><i class="fa fa-cart-plus"></i></h3>  
+                        <%@include file="message.jsp" %>
+
                     <section class="lattest-product-area pb-40 category-list">
                         <div class="row">
                             <% for (Product p : plist) {%>
 
                             <!--product card-->
 
-                            <div class="admin col-lg-4 col-md-5">
+                            <div class="admin col-lg-4 col-md-5 compare_card<%=p.getPid()%>">
                                 <div class="single-product">
                                     <img class="img-fluid card-img-top m-2" style="max-height:170px; max-width: 100%; width:auto" src="img/product/<%=p.getPphoto()%>" alt="">
                                     <div class="product-details">
-                                        <h6><%=p.getPname() + " : "+p.getPunit()%></h6>
+                                        <h6><%=p.getPname() + " : " + p.getPunit()%></h6>
                                         <div class="price">
                                             <h6>&#8377; <%=p.getPriceAfterApplyingDiscount()%>/-</h6>
                                             <h6 class="l-through">&#8377;<%=p.getPprice()%></h6>
@@ -236,7 +264,7 @@
                                                 <span class="lnr lnr-heart"></span>
                                                 <p class="hover-text">Wishlist</p>
                                             </a>
-                                            <a href="#" class="social-info">
+                                            <a rel="<%=p.getPid()%>" class="social-info compare">
                                                 <span class="lnr lnr-sync"></span>
                                                 <p class="hover-text">compare</p>
                                             </a>
@@ -279,7 +307,52 @@ crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="js/gmaps.min.js"></script>
 <script src="js/main.js"></script>
+<script type="text/javascript">
+            $(document).ready(function () {
+                $(document).on('click', '.compare', function () {
+                    var id = $(this).attr('rel');
+                    var size_class = $('.card_check').length;
+                    if (size_class > 1)
+                    {
+                        if ($(".compare_card" + id).hasClass("card_check"))
+                        {
+                            $(".compare_card" + id).removeClass("card_check");
+                        } else
+                        {
+                            alert("You have already select maximum product");
+                        }
+                    } else
+                    {
+                        if (size_class > 0)
+                        {
+                            $('#btn_compare').show();
+                        }
 
+                        if ($(".compare_card" + id).hasClass("card_check"))
+                        {
+                            $(".compare_card" + id).removeClass("card_check");
+                        } else
+                        {
+                            $(".compare_card" + id).addClass("card_check");
+
+                            var pro1 = $('#card_one').val();
+                            var pro2 = $('#card_two').val();
+
+                            if (pro1 == "")
+                            {
+                                $('#card_one').val(id);
+                            } else if (pro2 == "")
+                            {
+                                $('#card_two').val(id);
+                            }
+
+                        }
+                    }
+
+                });
+
+            });
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
             window.dataLayer = window.dataLayer || [];

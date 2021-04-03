@@ -66,6 +66,10 @@
               <a href="#"><i class="fa fa-dribbble"></i></a>
               <a href="#"><i class="fa fa-behance"></i></a>
             </div>
+            <br>
+            <h6>Contact Us</h6>
+            <p>ekiranastore@gmail.com</p>
+            <p>68552 55846</p>
           </div>
         </div>
       </div>

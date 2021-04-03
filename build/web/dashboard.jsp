@@ -499,6 +499,7 @@
                 <!--first column-->
 
                 <div class="col-md-4">
+                    <a href="product.jsp">
                     <div class="card">
 
                         <!--first box-->
@@ -512,11 +513,13 @@
                             <h1 class="text-uppercase text-muted">Categories</h1>
                         </div>
                     </div>
+                    </a>
                 </div>
 
 
                 <!--second column-->
                 <div class="col-md-4">
+                    <a href="product.jsp">
                     <div class="card">
 
                         <!--second box-->
@@ -530,10 +533,12 @@
                             <h1 class="text-uppercase text-muted">Products</h1>
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <!--second column-->
                 <div class="col-md-4">
+                    <a href="product.jsp">
                     <div class="card">
 
                         <!--second box-->
@@ -547,6 +552,7 @@
                             <h1 class="text-uppercase text-muted">Shops</h1>
                         </div>
                     </div>
+                    </a>
                 </div>
 
             </div>

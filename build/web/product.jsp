@@ -307,52 +307,8 @@ crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="js/gmaps.min.js"></script>
 <script src="js/main.js"></script>
-<script type="text/javascript">
-            $(document).ready(function () {
-                $(document).on('click', '.compare', function () {
-                    var id = $(this).attr('rel');
-                    var size_class = $('.card_check').length;
-                    if (size_class > 1)
-                    {
-                        if ($(".compare_card" + id).hasClass("card_check"))
-                        {
-                            $(".compare_card" + id).removeClass("card_check");
-                        } else
-                        {
-                            alert("You have already select maximum product");
-                        }
-                    } else
-                    {
-                        if (size_class > 0)
-                        {
-                            $('#btn_compare').show();
-                        }
+<script src="js/script.js"></script>
 
-                        if ($(".compare_card" + id).hasClass("card_check"))
-                        {
-                            $(".compare_card" + id).removeClass("card_check");
-                        } else
-                        {
-                            $(".compare_card" + id).addClass("card_check");
-
-                            var pro1 = $('#card_one').val();
-                            var pro2 = $('#card_two').val();
-
-                            if (pro1 == "")
-                            {
-                                $('#card_one').val(id);
-                            } else if (pro2 == "")
-                            {
-                                $('#card_two').val(id);
-                            }
-
-                        }
-                    }
-
-                });
-
-            });
-</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
             window.dataLayer = window.dataLayer || [];

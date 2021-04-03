@@ -1,5 +1,46 @@
 $(document).ready(function(){
-			$("#reg_form").submit(function(){
+                $(document).on('click', '.compare', function () {
+                    var id = $(this).attr('rel');
+                    var size_class = $('.card_check').length;
+                    if (size_class > 1)
+                    {
+                        if ($(".compare_card" + id).hasClass("card_check"))
+                        {
+                            $(".compare_card" + id).removeClass("card_check");
+                        } else
+                        {
+                            alert("You have already select maximum product");
+                        }
+                    } else
+                    {
+                        if (size_class > 0)
+                        {
+                            $('#btn_compare').show();
+                        }
+
+                        if ($(".compare_card" + id).hasClass("card_check"))
+                        {
+                            $(".compare_card" + id).removeClass("card_check");
+                        } else
+                        {
+                            $(".compare_card" + id).addClass("card_check");
+
+                            var pro1 = $('#card_one').val();
+                            var pro2 = $('#card_two').val();
+
+                            if (pro1 == "")
+                            {
+                                $('#card_one').val(id);
+                            } else if (pro2 == "")
+                            {
+                                $('#card_two').val(id);
+                            }
+
+                        }
+                    }
+
+                });	
+                $("#reg_form").submit(function(){
 				var  userName=$("#userName").val();
 				var  userEmail=$("#userEmail").val();
 				var  userPassword=$("#userPassword").val();

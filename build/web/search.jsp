@@ -32,6 +32,16 @@
         <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/main.css">
+        <style>
+            .card_check
+            {
+                border: 3px solid red;
+            }
+             .admin:hover{
+                background: #c4e3f3;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
         <header class="header_area sticky-header">
@@ -101,25 +111,32 @@
                             </div>
                         </div>
                     </div>
+                    <div style="margin-top: 20px;margin-right: 20px;display:none;"  id="btn_compare" >
+                        <form action="compare.jsp" method="post">
+                            <input type="hidden" value="" id="card_one" name="card_one"/>
+                            <input type="hidden" value="" id="card_two" name="card_two"/>
+                            <input type="submit" value="Compare Product" class="btn btn-success" style="float:right;"/>
+                        </form>
+                    </div> 
                     <div class="row">
 
                         <%
                             while (rs.next()) {
                                 z = 1;
                         %>
-                        <div class="col-lg-3 col-md-6">
+                        <div class="admin col-lg-3 col-md-6 compare_card<%=rs.getInt(1)%>">
                             <div class="single-product">
-                                <img class="img-fluid" style="max-height:240px; max-width: 100%; width:auto"  src="img/product/<%=rs.getString(4)%>" alt="">
+                                <img class="img-fluid card-img-top m-2" style="max-height:240px; max-width: 100%; width:auto"  src="img/product/<%=rs.getString(4)%>" alt="">
                                 <div class="product-details">
-                                    <h6><%=rs.getString(2)+ " : "+rs.getString(7)%></h6>
+                                    <h6><%=rs.getString(2) + " : " + rs.getString(7)%></h6>
                                     <div class="price">
                                         <h6>&#8377; <%=Helper.getPriceAfterApplyingDiscount(rs.getInt(5), rs.getInt(6))%>/-</h6>
                                         <h6 class="l-through">&#8377;<%=rs.getInt(5)%></h6>
                                     </div>
-                                        <br>
-                                        <div class="typography desc">
-                                            <h6><%=Helper.get10words(rs.getString(3))%></h6>
-                                        </div>
+                                    <br>
+                                    <div class="typography desc">
+                                        <h6><%=Helper.get10words(rs.getString(3))%></h6>
+                                    </div>
                                     <div class="prd-bottom">
                                         <a href="addtocardAction.jsp?id=<%=rs.getInt(1)%> "class="social-info">
                                             <span class="lnr lnr-cart"></span>
@@ -129,7 +146,7 @@
                                             <span class="lnr lnr-heart"></span>
                                             <p class="hover-text">Wishlist</p>
                                         </a>
-                                        <a href="#" class="social-info">
+                                        <a rel="<%=rs.getInt(1)%>" class="social-info compare">
                                             <span class="lnr lnr-sync"></span>
                                             <p class="hover-text">compare</p>
                                         </a>
@@ -151,7 +168,7 @@
             </div>
         </div>                    
         <%
-                if (z == 0) {%>
+            if (z == 0) {%>
         <h1 class="text-secondary" style="margin-left: 40px;">Nothing to show</h1>
         <%}
         %> 
@@ -174,7 +191,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
         <script src="js/gmaps.min.js"></script>
         <script src="js/main.js"></script>
-
+        <script src="js/script.js"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
         <script>
             window.dataLayer = window.dataLayer || [];

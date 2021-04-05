@@ -147,36 +147,40 @@
 
                 <!--first column-->
                 <div class="col-md-4">
-                    <div class="card">
+                    <a href="all_categories.jsp">
+                        <div class="card">
 
-                        <!--first box-->
-                        <div class="card-body text-center">
+                            <!--first box-->
+                            <div class="card-body text-center">
 
-                            <div class="container">
-                                <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/list.png" alt="user_icon" />
-                            </div> 
+                                <div class="container">
+                                    <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/list.png" alt="user_icon" />
+                                </div> 
 
-                            <h1><%=clist.size()%></h1>
-                            <h1 class="text-uppercase text-muted">Categories</h1>
+                                <h1><%=clist.size()%></h1>
+                                <h1 class="text-uppercase text-muted">Categories</h1>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!--second column-->
                 <div class="col-md-4">
-                    <div class="card">
+                    <a href="all_shop_product.jsp">
+                        <div class="card">
 
-                        <!--second box-->
-                        <div class="card-body text-center">
+                            <!--second box-->
+                            <div class="card-body text-center">
 
-                            <div class="container">
-                                <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/product.png" alt="user_icon" />
-                            </div> 
+                                <div class="container">
+                                    <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/product.png" alt="user_icon" />
+                                </div> 
 
-                            <h1><%=plist.size()%></h1>
-                            <h1 class="text-uppercase text-muted">Products</h1>
+                                <h1><%=plist.size()%></h1>
+                                <h1 class="text-uppercase text-muted">Products</h1>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!--third column-->
@@ -310,7 +314,7 @@
 
                 <!--first column-->
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card" data-toggle="modal" data-target="#category-total">
 
                         <!--first box-->
                         <div class="card-body text-center">
@@ -330,7 +334,7 @@
                     <div class="card">
 
                         <!--second box-->
-                        <div class="card-body text-center">
+                        <div class="card-body text-center" data-toggle="modal" data-target="#product-total">
 
                             <div class="container">
                                 <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/product.png" alt="user_icon" />
@@ -474,6 +478,64 @@
 
                 <!--end add product model-->
 
+                <!--start add category model-->
+                <div class="container">
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="category-total">
+                        <div class="modal-dialog model-lg">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header custom-bg">
+                                    <h4 class="modal-title text-white">Total categories in a web app</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <div class="container text-center">
+                                        <h1><%=clist.size()%></h1>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--end add category model-->
+                
+                 <!--start add product model-->
+                <div class="container">
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="product-total">
+                        <div class="modal-dialog model-lg">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header custom-bg">
+                                    <h4 class="modal-title text-white">Total products in a web app</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <div class="container text-center">
+                                        <h1><%=plist.size()%></h1>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--end add product model-->
+
             </div>
 
         </div>
@@ -500,19 +562,19 @@
 
                 <div class="col-md-4">
                     <a href="product.jsp">
-                    <div class="card">
+                        <div class="card">
 
-                        <!--first box-->
-                        <div class="card-body text-center">
+                            <!--first box-->
+                            <div class="card-body text-center">
 
-                            <div class="container">
-                                <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/list.png" alt="user_icon" />
-                            </div> 
+                                <div class="container">
+                                    <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/list.png" alt="user_icon" />
+                                </div> 
 
-                            <h1><%=clist.size()%></h1>
-                            <h1 class="text-uppercase text-muted">Categories</h1>
+                                <h1><%=clist.size()%></h1>
+                                <h1 class="text-uppercase text-muted">Categories</h1>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
 
@@ -520,38 +582,38 @@
                 <!--second column-->
                 <div class="col-md-4">
                     <a href="product.jsp">
-                    <div class="card">
+                        <div class="card">
 
-                        <!--second box-->
-                        <div class="card-body text-center">
+                            <!--second box-->
+                            <div class="card-body text-center">
 
-                            <div class="container">
-                                <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/product.png" alt="user_icon" />
-                            </div> 
+                                <div class="container">
+                                    <img style="max-width:110px;" class="img-fluid " src="img/dashboard_icons/product.png" alt="user_icon" />
+                                </div> 
 
-                            <h1><%=plist.size()%></h1>
-                            <h1 class="text-uppercase text-muted">Products</h1>
+                                <h1><%=plist.size()%></h1>
+                                <h1 class="text-uppercase text-muted">Products</h1>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
 
                 <!--second column-->
                 <div class="col-md-4">
                     <a href="product.jsp">
-                    <div class="card">
+                        <div class="card">
 
-                        <!--second box-->
-                        <div class="card-body text-center">
+                            <!--second box-->
+                            <div class="card-body text-center">
 
-                            <div class="container">
-                                <img style="max-width:130px;" class="img-fluid " src="img/dashboard_icons/shop.png" alt="user_icon" />
-                            </div> 
+                                <div class="container">
+                                    <img style="max-width:130px;" class="img-fluid " src="img/dashboard_icons/shop.png" alt="user_icon" />
+                                </div> 
 
-                            <h1><%=slist.size()%></h1>
-                            <h1 class="text-uppercase text-muted">Shops</h1>
+                                <h1><%=slist.size()%></h1>
+                                <h1 class="text-uppercase text-muted">Shops</h1>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
 

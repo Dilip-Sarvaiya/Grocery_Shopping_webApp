@@ -24,6 +24,7 @@
     HttpSession httpSession = request.getSession();
     try {
         String email = (String) session.getAttribute("login_or_not");
+        String db_charge = (String) session.getAttribute("db_charge");
         if (email != null) {
 %>
 <div style="margin-top: 140px;" class="container">
@@ -70,41 +71,31 @@
             <div class="container mt-3">
                 <%@include file="message.jsp" %>
                 <table class="table table-hover"  width='100%'>
-                    <h3 class="text-center">All products<i class="fa fa-cart-plus"  color: yellow;"></i></h3>  
+                    <h3 class="text-center">All categories<i class="fa fa-cart-plus"  color: yellow;"></i></h3>  
                        
                     <thead>
                         <tr>
                             <th>S.no</th>
-                            <th>Product Name</th>
-                            <th>Product description</th>
-                            <th>Product image</th>
-                            <th>Product Price</th>
-                            <th>Product Discount </th>
-                            <th>Product quantity </th>
-                            <th>Stock per order</th>
+                            <th>Category Title</th>
+                            <th>Category Description</th>
 
                             <th colspan="2" rowspan="1">Action</th>
                         </tr>
                     </thead>
                     <%
-                        List<Product> pr = ProductDAO.getAllProducts();
+                        List<Category> pr = CategoryDAO.viewAll();
                         int sno = 0;
-                        for (Product p : pr) {
+                        for (Category p : pr) {
                             sno = sno + 1;
                     %>
                     <tbody>
                         <tr>
                             <td><%=sno%></td>
-                            <td><%=p.getPname()%></td>
-                            <td><%=p.getPdesc()%></td>
-                            <td><img src="img/product/<%=p.getPphoto()%>" style="max-height:700px; max-width: 100%; width:auto"  class="card-img-top m-2" alt=".."></td>
-                            <td><%=p.getPprice()%></td>
-                            <td><%=p.getPdiscount()%></td>
-                            <td><%=p.getPquantity()%></td>
-                            <td><%=p.getPunit()%></td>
-                            <% String all_shop="1"; %>
-                            <td><a href="edit_product.jsp?id=<%=p.getPid()%>&all_shop=<%=all_shop%>"><button type="button" class="btn btn-primary btn-block">Edit <i class="fa fa-edit"></i></button></a></td>
-                            <td><a href="delete_product.jsp?id=<%=p.getPid()%>&all_shop=<%=all_shop%>"><button type="button" class="btn btn-danger btn-block">Delete <i class="fa fa-close"></i></button></a></td>
+                            <td><%=p.getCategoryTitle()%></td>
+                            <td><%=p.getCategoryDescription()%></td>
+                            
+                            <td><a href="edit_category.jsp?id=<%=p.getCategoryId()%>"><button type="button" class="btn btn-primary btn-block">Edit <i class="fa fa-edit"></i></button></a></td>
+                            <td><a href="delete_category.jsp?id=<%=p.getCategoryId()%>"><button type="button" class="btn btn-danger btn-block">Delete <i class="fa fa-close"></i></button></a></td>
 
                             <%}%>
                         </tr>

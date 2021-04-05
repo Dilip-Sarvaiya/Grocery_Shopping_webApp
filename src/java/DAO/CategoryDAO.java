@@ -29,6 +29,22 @@ public class CategoryDAO {
         session.close();
         return catId;
     }
+     public static void delete(Category bean)
+    {
+        session=HibernateUtil.getSessionFactory().openSession();
+        Transaction t=session.beginTransaction();
+        session.delete(bean);
+        t.commit();
+        session.close();
+    } 
+     public static void update(Category bean)
+    {
+        session=HibernateUtil.getSessionFactory().openSession();
+        Transaction t=session.beginTransaction();
+        session.update(bean);
+        t.commit();
+        session.close();
+    }
     public static List<Category> viewAll()
     {
         String hql = "from Category";
@@ -52,4 +68,20 @@ public class CategoryDAO {
         }
         return cat;
     }
+    
+    //View Single product by id
+      public static Category viewSingle_by_Category_id(long cid)
+    {
+        
+        String hql = "from Category where categoryId='"+cid+"'";
+        session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery(hql);
+        List<Category> products = query.list();
+        session.close();
+        Category obj=null;
+        if(!products.isEmpty())
+        obj = products.get(0);
+        return obj;
+    }  
+    
 }

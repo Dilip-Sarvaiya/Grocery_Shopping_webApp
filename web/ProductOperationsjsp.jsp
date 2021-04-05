@@ -130,6 +130,25 @@
                     out.println(e.getMessage());
                 }
             }
+            else if (add_type.trim().equals("edit_category")) {
+                //add product
+                String category_name = request.getParameter("category_name");
+                String category_description = request.getParameter("category_description");
+                String category_id = request.getParameter("category_id");
+                try {
+                    HttpSession httpSession = request.getSession();
+                    Category cd=CategoryDAO.viewSingle_by_Category_id(Long.parseLong(category_id));
+                    cd.setCategoryId(cd.getCategoryId());
+                    cd.setCategoryTitle(category_name);
+                    cd.setCategoryDescription(category_description);
+                    CategoryDAO.update(cd);
+                    httpSession.setAttribute("message", "Category updated successfully Category id is: "+Long.parseLong(category_id));
+                    response.sendRedirect("all_categories.jsp");
+                    
+                } catch (Exception e) {
+                    out.println(e.getMessage());
+                }
+            }
         %> 
     </body>
 </html>

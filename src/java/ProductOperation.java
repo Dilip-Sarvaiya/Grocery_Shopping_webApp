@@ -170,7 +170,15 @@ public class ProductOperation extends HttpServlet {
                 ProductDAO.update(product);
                 HttpSession httpSession=request.getSession();
                 httpSession.setAttribute("product_add_msg", "Product updated successfully Product id is: "+product_id);
-                response.sendRedirect("shop_vise_products.jsp");
+                String all_shop=(String)httpSession.getAttribute("all_shop");
+                if(all_shop!=null)
+                {
+                    response.sendRedirect("all_shop_product.jsp");
+                }
+                else
+                {
+                    response.sendRedirect("shop_vise_products.jsp");
+                }
                 
                 //uploading code
                 try {

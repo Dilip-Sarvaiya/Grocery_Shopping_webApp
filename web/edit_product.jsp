@@ -64,6 +64,10 @@
                     <div class="col-lg-6">
                         <div class="login_form_inner">
                             <h3>Edit Product</h3>
+                            <%
+                                HttpSession httpSession=request.getSession();
+                                httpSession.setAttribute("all_shop",request.getParameter("all_shop"));
+                                %>
                             <form class="row login_form" action="ProductOperation" enctype="multipart/form-data" method="post" id="reg_form" class="form-horizontal" role="form">
                                 <%@include file="message.jsp" %>
                                 <input type="hidden" name="operation" value="product_edit"  />

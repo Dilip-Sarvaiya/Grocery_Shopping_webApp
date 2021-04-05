@@ -17,7 +17,6 @@
 <%@page import="Util.HibernateUtil"%>
 <%@page import="DAO.CategoryDAO"%>
 <%@page import="Pojo.Category"%>
-<%@ page import = "java.io.,java.util., javax.servlet.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

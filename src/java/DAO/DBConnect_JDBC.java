@@ -20,7 +20,7 @@ public class DBConnect_JDBC {
             if(conn==null)
             {
             Class.forName("com.mysql.jdbc.Driver");
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/grocery_db?user=root");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3307/grocery_db?user=root");
             
             }
         } catch (Exception e) {
@@ -29,6 +29,4 @@ public class DBConnect_JDBC {
     
          return conn;
     }
-   
-    
 }

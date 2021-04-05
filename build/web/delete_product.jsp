@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-       
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <title>Registration Page</title>
@@ -20,14 +20,19 @@
     </head>
     <body>
         <%
-             HttpSession httpSession=request.getSession();
-            long pid=Long.parseLong(request.getParameter("id"));
-            Product pd=new Product();
+            HttpSession httpSession = request.getSession();
+            long pid = Long.parseLong(request.getParameter("id"));
+            String all_shop = request.getParameter("all_shop");
+            Product pd = new Product();
             pd.setPid(pid);
             ProductDAO.delete(pd);
             httpSession.setAttribute("message", "Product has been deleted");
-            response.sendRedirect("shop_vise_products.jsp");
-           %>
+            if (all_shop != null) {
+                response.sendRedirect("all_shop_product.jsp");
+            } else {
+                response.sendRedirect("shop_vise_products.jsp");
+            }
+        %>
     </body>
 </html>
 

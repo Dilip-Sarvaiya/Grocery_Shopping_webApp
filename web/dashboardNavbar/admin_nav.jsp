@@ -23,7 +23,7 @@
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto">
               <li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="product.jsp">Products</a></li>
+              <li class="nav-item"><a class="nav-link" href="all_shop_product.jsp">Products</a></li>
               <li class="nav-item active"><a class="nav-link" href="dashboard.jsp">Dashboard</a></li>
               <li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li>
             </ul>

@@ -261,10 +261,6 @@
                     <p class="hover-text">add to cart</p>
                   </a>
                   <a href="#" class="social-info">
-                    <span class="lnr lnr-heart"></span>
-                    <p class="hover-text">Wishlist</p>
-                  </a>
-                  <a href="#" class="social-info">
                     <span class="lnr lnr-sync"></span>
                     <p class="hover-text">compare</p>
                   </a>
@@ -306,10 +302,6 @@
                   <a href="#" class="social-info">
                     <span class="lnr lnr-cart"></span>
                     <p class="hover-text">add to cart</p>
-                  </a>
-                  <a href="#" class="social-info">
-                    <span class="lnr lnr-heart"></span>
-                    <p class="hover-text">Wishlist</p>
                   </a>
                   <a href="#" class="social-info">
                     <span class="lnr lnr-sync"></span>

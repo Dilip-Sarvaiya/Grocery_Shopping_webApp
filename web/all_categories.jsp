@@ -65,7 +65,7 @@
         </style>
     </head>
     <body>
-        <jsp:include page="dashboardNavbar/shopkeeper_nav.jsp"/>
+        <jsp:include page="dashboardNavbar/admin_nav.jsp"/>
         <div style="padding-top: 10px;" class="container-fluid">
 
             <div class="container mt-3">
